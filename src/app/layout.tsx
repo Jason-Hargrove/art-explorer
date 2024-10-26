@@ -23,11 +23,35 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head />
-      <body>
-        <nav className='bg-blue-500 text-white p-4'>
-          <h1>Art Explorer</h1>
-        </nav>
-        {children}
+      <body className="bg-gray-100 text-gray-900">
+        <header className="bg-blue-500 text-white p-4">
+          <nav className="flex flex-col md:flex-row justify-between items-center max-w-4xl mx-auto space-y-2 md:space-y-0">
+            <h1 className="text-xl md:text-2xl font-bold">Art Explorer</h1>
+            <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
+              <li>
+                <a href="/" className="hover:underline">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="/explore" className="hover:underline">
+                  Explore
+                </a>
+              </li>
+              <li>
+                <a href="/about" className="hover:underline">
+                  About
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <main className="max-w-4xl mx-auto p-4">{children}</main>
+        <footer className="bg-gray-800 text-white p-4 text-center text-sm md:text-base">
+          <p>
+            &copy; {new Date().getFullYear()} Art Explorer. All Rights Reserved.
+          </p>
+        </footer>
       </body>
     </html>
   );
