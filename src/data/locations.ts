@@ -12,6 +12,6 @@ export const locations = [
     {
       id: 3,
       name: "Yeiser Art Center",
-      position: { lat: 37.0854, lng: -88.5962 },
+      position: { lat: 37.08777, lng: -88.59545 },
     },
   ];

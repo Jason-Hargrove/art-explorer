@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useRef } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
@@ -18,14 +18,14 @@ const Map: React.FC = () => {
       .then(() => {
         if (mapRef.current && google) {
           const map = new google.maps.Map(mapRef.current, {
-            center: { lat: 40.73061, lng: -73.935242 },
-            zoom: 3,
+            center: { lat: 37.08777, lng: -88.59545},
+            zoom: 50,
           });
 
           locations.forEach((location) => {
-            new google.maps.Marker({
+            const marker = new google.maps.Marker({
               position: location.position,
-              map: map,
+              map,
               title: location.name,
             });
           });
