@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
+import { locations } from '@/data/locations';
 
 const Map: React.FC = () => {
   const mapRef = useRef<HTMLDivElement | null>(null);
@@ -16,9 +17,17 @@ const Map: React.FC = () => {
       .importLibrary('maps')
       .then(() => {
         if (mapRef.current && google) {
-          new google.maps.Map(mapRef.current, {
-            center: { lat: 40.73061, lng: -73.935242 }, // Default location: NYC
-            zoom: 10,
+          const map = new google.maps.Map(mapRef.current, {
+            center: { lat: 40.73061, lng: -73.935242 },
+            zoom: 3,
+          });
+
+          locations.forEach((location) => {
+            new google.maps.Marker({
+              position: location.position,
+              map: map,
+              title: location.name,
+            });
           });
         }
       })
