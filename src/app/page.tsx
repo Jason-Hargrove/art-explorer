@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { FC } from 'react';
+import Map from '@/components/Map'
 
 const Home: FC = () => {
   return (
@@ -10,6 +11,7 @@ const Home: FC = () => {
       </Head>
       <main className='min-h-screen flex items-center justify-center bg-gray-100'>
         <h1 className='text-4xl font-bold text-center'>Welcome to Art Explorer</h1>
+        <Map />
       </main>
     </div>
   )
