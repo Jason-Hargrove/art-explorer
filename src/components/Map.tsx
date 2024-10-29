@@ -18,8 +18,8 @@ const Map: React.FC = () => {
       .then(() => {
         if (mapRef.current && google) {
           const map = new google.maps.Map(mapRef.current, {
-            center: { lat: 37.08777, lng: -88.59545},
-            zoom: 50,
+            center: { lat: 37.08777, lng: -88.59545 },
+            zoom: 5,
           });
 
           locations.forEach((location) => {
@@ -27,6 +27,18 @@ const Map: React.FC = () => {
               position: location.position,
               map,
               title: location.name,
+            });
+
+            const infoWindow = new google.maps.InfoWindow({
+              content: `<div><h2>${location.name}</h2><p>Coordinates: (${location.position.lat}, ${location.position.lng})</p></div>`,
+            });
+
+            marker.addListener('click', () => {
+              infoWindow.open({
+                anchor: marker,
+                map,
+                shouldFocus: false,
+              });
             });
           });
         }

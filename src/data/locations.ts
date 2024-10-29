@@ -1,4 +1,10 @@
-export const locations = [
+export type Location = {
+  id: number;
+  name: string;
+  position: { lat: number; lng: number };
+};
+
+export const locations: Location[] = [
     {
       id: 1,
       name: "Saint Louis Art Museum",
