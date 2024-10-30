@@ -27,6 +27,7 @@ const Map: React.FC = () => {
               position: location.position,
               map,
               title: location.name,
+              icon: '/icons/icons8-graffiti-art-100.png',
             });
 
             const infoWindow = new google.maps.InfoWindow({
