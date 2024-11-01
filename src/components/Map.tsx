@@ -30,9 +30,17 @@ const Map: React.FC = () => {
               icon: '/icons/icons8-graffiti-art-100.png',
             });
 
-            const infoWindow = new google.maps.InfoWindow({
-              content: `<div><h2>${location.name}</h2><p>Coordinates: (${location.position.lat}, ${location.position.lng})</p></div>`,
-            });
+            const infoWindowContent = `
+            <div style="max-width: 200px;">
+              <h2 style="font-size: 16px; margin: 0;">${location.name}</h2>
+              ${location.image ? `<img src="${location.image}" alt="${location.name}" style="width: 100%; margin-top: 8px;" />` : ''}
+              <p style="font-size: 14px; margin-top: 8px;">${location.description}</p>
+            </div>
+          `;
+
+          const infoWindow = new google.maps.InfoWindow({
+            content: infoWindowContent,
+          });
 
             marker.addListener('click', () => {
               infoWindow.open({

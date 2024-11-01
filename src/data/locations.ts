@@ -12,7 +12,7 @@ export const locations: Location[] = [
       name: "Saint Louis Art Museum",
       position: { lat: 38.6394, lng: -90.2948 },
       description: "The Saint Louis Art Museum is a museum in St. Louis, Missouri, that is known for its collection of art from around the world.",
-      image: "/images/st-louis-art-museum.jpg"
+      image: "/images/saint-louis-art-museum.jpg"
     },
     {
       id: 2,
