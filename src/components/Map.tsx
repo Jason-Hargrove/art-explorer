@@ -3,6 +3,8 @@
 import { useEffect, useRef } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 import { locations } from '@/data/locations';
+import InfoWindowContent from './InfoWindowContent';
+import ReactDOMServer from 'react-dom/server';
 
 const Map: React.FC = () => {
   const mapRef = useRef<HTMLDivElement | null>(null);
@@ -30,13 +32,13 @@ const Map: React.FC = () => {
               icon: '/icons/icons8-graffiti-art-100.png',
             });
 
-            const infoWindowContent = `
-            <div style="max-width: 200px;">
-              <h2 style="font-size: 16px; margin: 0;">${location.name}</h2>
-              ${location.image ? `<img src="${location.image}" alt="${location.name}" style="width: 100%; margin-top: 8px;" />` : ''}
-              <p style="font-size: 14px; margin-top: 8px;">${location.description}</p>
-            </div>
-          `;
+            const infoWindowContent = ReactDOMServer.renderToString(
+              <InfoWindowContent
+                name={location.name}
+                description={location.description}
+                image={location.image}
+              />
+            );
 
           const infoWindow = new google.maps.InfoWindow({
             content: infoWindowContent,
