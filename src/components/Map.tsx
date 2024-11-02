@@ -30,6 +30,7 @@ const Map: React.FC = () => {
               map,
               title: location.name,
               icon: '/icons/icons8-graffiti-art-100.png',
+              animation: google.maps.Animation.DROP,
             });
 
             const infoWindowContent = ReactDOMServer.renderToString(
@@ -50,6 +51,10 @@ const Map: React.FC = () => {
                 map,
                 shouldFocus: false,
               });
+              marker.setAnimation(google.maps.Animation.BOUNCE);
+              setTimeout(() => {
+                marker.setAnimation(null);
+              }, 1200);
             });
           });
         }
