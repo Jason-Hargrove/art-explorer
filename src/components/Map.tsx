@@ -26,44 +26,11 @@ const Map: React.FC = () => {
       .importLibrary("maps")
       .then(() => {
         if (mapRef.current && google) {
-          const map = new google.maps.Map(mapRef.current, {
+          const newMap = new google.maps.Map(mapRef.current, {
             center: { lat: 37.08777, lng: -88.59545 },
             zoom: 5,
           });
-
-          locations.forEach((location) => {
-            const marker = new google.maps.Marker({
-              position: location.position,
-              map,
-              title: location.name,
-              icon: "/icons/icons8-graffiti-art-100.png",
-              animation: google.maps.Animation.DROP,
-            });
-
-            const infoWindowContent = ReactDOMServer.renderToString(
-              <InfoWindowContent
-                name={location.name}
-                description={location.description}
-                image={location.image}
-              />
-            );
-
-            const infoWindow = new google.maps.InfoWindow({
-              content: infoWindowContent,
-            });
-
-            marker.addListener("click", () => {
-              infoWindow.open({
-                anchor: marker,
-                map,
-                shouldFocus: false,
-              });
-              marker.setAnimation(google.maps.Animation.BOUNCE);
-              setTimeout(() => {
-                marker.setAnimation(null);
-              }, 1200);
-            });
-          });
+          setMap(newMap);
         }
       })
       .catch((error) =>
@@ -71,16 +38,59 @@ const Map: React.FC = () => {
       );
   }, []);
 
+  useEffect(() => {
+    if (map) {
+      markersRef.current.forEach((marker) => marker.setMap(null));
+      markersRef.current = [];
+
+      filteredLocations.forEach((location) => {
+        const marker = new google.maps.Marker({
+          position: location.position,
+          map,
+          title: location.name,
+          icon: "/icons/icons8-graffiti-art-100.png",
+          animation: google.maps.Animation.DROP,
+        });
+
+        const infoWindowContent = ReactDOMServer.renderToString(
+          <InfoWindowContent
+            name={location.name}
+            description={location.description}
+            image={location.image}
+          />
+        );
+
+        const infoWindow = new google.maps.InfoWindow({
+          content: infoWindowContent,
+        });
+
+        marker.addListener("click", () => {
+          infoWindow.open({
+            anchor: marker,
+            map,
+            shouldFocus: false,
+          });
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+          setTimeout(() => {
+            marker.setAnimation(null);
+          }, 1200);
+        });
+
+        markersRef.current.push(marker);
+      });
+    }
+  }, [map, filteredLocations]);
+
   return (
-    <div>
+    <div className="flex flex-col items-center w-full">
       <input
         type="text"
         placeholder="Search for a location"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="mb-4 p-2 border border-gray-300 rounded"
+        className="mb-4 p-2 border border-gray-300 rounded w-11/12 max-w-md"
       />
-      <div ref={mapRef} style={{ width: "100%", height: "500px" }} />
+      <div ref={mapRef} className="w-full h-[500px] rounded-lg shadow-lg" />
     </div>
   );
 };
