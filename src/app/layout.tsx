@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Link from "next/link";
 
 // Maybe use local fonts?
 
@@ -29,19 +30,19 @@ export default function RootLayout({
             <h1 className="text-xl md:text-2xl font-bold">Art Explorer</h1>
             <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
               <li>
-                <a href="/" className="hover:underline">
+                <Link href="/" className="hover:underline">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/explore" className="hover:underline">
+                <Link href="/explore" className="hover:underline">
                   Explore
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/about" className="hover:underline">
+                <Link href="/about" className="hover:underline">
                   About
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>
